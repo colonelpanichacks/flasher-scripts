@@ -1,5 +1,0 @@
-# Meshtastic Heltec V3 Flash Tool Dependencies
-esptool>=4.0
-meshtastic>=2.0
-
-
