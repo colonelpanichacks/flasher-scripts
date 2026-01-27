@@ -1,0 +1,11 @@
+# Meshtastic Universal Flasher Dependencies
+# Install with: pip install -r requirements.txt
+
+# ESP32 flashing tool
+esptool>=4.7.0
+
+# Serial port communication
+pyserial>=3.5
+
+# Meshtastic CLI for device configuration
+meshtastic>=2.3.0
