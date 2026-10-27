@@ -59,3 +59,7 @@ Dependencies install automatically on first run.
     ├── oui-detector/
     └── remoteid/
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).
