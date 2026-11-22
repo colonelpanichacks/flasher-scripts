@@ -34,7 +34,7 @@ FIRMWARE_BASE_URL = "https://github.com/meshtastic/firmware/releases/download"
 SUPPORTED_DEVICES = {
     "heltec-v3": {
         "chip": "esp32-s3",
-        "firmware_pattern": r"heltec-v3.*\.factory\.bin$",
+        "firmware_pattern": r"firmware-heltec-v3-.*\.factory\.bin$",
         "flash_offset": 0x0,
         "description": "Heltec WiFi LoRa 32 V3",
     },
@@ -804,8 +804,9 @@ Supported devices:
     parser.add_argument("--port", "-p", help="Serial port (auto-detect if not specified)")
     parser.add_argument("--download-only", action="store_true",
                         help="Download firmware only, don't flash")
-    parser.add_argument("--configure-only", action="store_true",
-                        help="Configure only, don't flash")
+    parser.add_argument("--configure-only", "--settings-only", "--apply-settings",
+                        dest="configure_only", action="store_true",
+                        help="Apply settings only, don't flash (no firmware download)")
     parser.add_argument("--no-configure", action="store_true",
                         help="Flash without configuring")
     parser.add_argument("--no-erase", action="store_true",
@@ -860,8 +861,11 @@ Supported devices:
             print("Or run: python flash_meshtastic.py --install-deps")
             sys.exit(1)
     
-    # Get latest version
-    version, _ = get_latest_version()
+    # Get latest version (skipped when only applying settings — no download needed)
+    if args.configure_only:
+        version = "(existing firmware)"
+    else:
+        version, _ = get_latest_version()
     
     # Download firmware
     if not args.configure_only:
